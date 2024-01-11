@@ -128,7 +128,8 @@ export default function Home() {
       <div className='flex lg:flex-row flex-col w-full min-h-screen h-fit items-center rounded-[20px] bg-[#F6E6D9]  '>
         {/* carousel part  */}
 
-        <motion.div variants={fadeIn("left", 0.5)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.7 }}
+        <div 
+        // variants={fadeIn("left", 0.5)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.7 }}
           id="default-carousel" className="relative min-h-screen h-full bg-[#F6E6D9]  w-[100%] lg:w-[50%]" data-carousel="slide">
           {/* <!-- Carousel wrapper --> */}
           <div className="relative min-h-screen h-full w-full overflow-hidden">
@@ -178,7 +179,7 @@ export default function Home() {
 
             </div>
           )}
-        </motion.div>
+        </div>
 
         {/* product part  */}
         <div className='flex flex-col items-center w-[100%] lg:w-[50%] min-h-screen h-full bg-[#F6E6D9] p-20px'>

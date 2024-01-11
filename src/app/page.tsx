@@ -313,7 +313,8 @@ export default function Home() {
               </div>
             </motion.div>
             {/* description */}
-            <motion.div variants={fadeIn("down", 0.9)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.9 }}
+            <div
+            //  variants={fadeIn("down", 0.9)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.3 }}
               className='flex flex-col items-center   bg-blend-lighten 
        h-fit lg:w-[85%] xl:w-[65%] md:w-[65%] w-[100%]  sm:w-[90%] rounded-[20px] my-[25px] p-[10px] tracking-widest'>
               {/* headers ie description harvest usecase */}
@@ -384,7 +385,7 @@ export default function Home() {
 
               </div>
 
-            </motion.div>
+            </div>
 
           </div>
         </div>

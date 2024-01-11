@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import { AnimatePresence } from 'framer-motion'
+import { Router } from 'next/router'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <head>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.css" rel="stylesheet" />
+      </head>
+      
+      <body  className={inter.className}>{children}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
+      </body>
+      
     </html>
   )
 }

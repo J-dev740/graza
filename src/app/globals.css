@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300&family=DM+Serif+Display&family=Gruppo&family=Merriweather:ital,wght@1,300;1,400;1,900&family=Montserrat:ital,wght@1,300&family=Nosifer&family=Plus+Jakarta+Sans:wght@400;700&family=Sacramento&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,7 +8,10 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 }
-
+@font-face {
+  font-family: 'GTalpina Regular';
+  src: url('../../public/fonts/GT-Alpina-Typewriter-Regular-Trial.woff2') format('woff2');
+}
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;

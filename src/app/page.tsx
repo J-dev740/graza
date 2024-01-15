@@ -1,9 +1,21 @@
-'use client'
+'use client';
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { fadeIn } from '../app/variants'
 import {IoIosArrowUp,IoIosArrowDown} from 'react-icons/io'
+import Cart from './components/cart'
+import { Carousel, Progress } from 'flowbite-react'
+import { Button } from 'flowbite-react';
+import TestCarousel from './components/testcarousel';
+
+interface IcartItem {
+  quantity:number,
+  price:number,
+  name:string,
+  // available:string,
+  totalPrice:number
+}
 
 export default function Home() {
   const [screenWidth, setScreenWidth] = useState<number>(0);
@@ -22,6 +34,23 @@ export default function Home() {
     }
 
   }
+  const [cartItems,setCartItems] =useState<IcartItem[]>([
+
+  ])
+  const [carouselItems, setCarouselItems]=useState([
+    {
+        price:21,
+        name:`"Drizzle"`,
+        quantity:"1 bottle"
+
+    },
+    {
+        price:16,
+        name:` "Sizzle"`,
+        quantity:"1 bottle"
+
+    }
+])
   const handleResize = () => {
     setScreenWidth(window.innerWidth);
   };
@@ -119,18 +148,66 @@ export default function Home() {
   const [tabContent, setTabContent] = useState("D");
   const [frequency, setFrequency] = useState(Frequency[0]);
   const [open, setOpen] = useState(false);
-  const [quantity, setQuantity] = useState(0)
+  const [quantity, setQuantity] = useState(0);
+  const [modal,setModal]=useState(false);
   // const [image,setImage]=useState(productImage[0].url);
   return (
-    <main className="flex min-h-screen h-fit  w-full flex-col items-center justify-between">
-      {/* first section */}
+    <main className="flex min-h-screen h-fit  w-full flex-col items-center justify-between bg-[#F6E6D9] ">
+      {/* navbar  */}
+      <div className='flex flex-row w-full text-black justify-between bg-transparent items-center py-4 px-8'>
+        {/* Graza */}
+        <div className='w-fit'>Graza</div>
+        {/* nav section */}
+        <div>
+          <ul className='flex flex-col lg:flex-row justify-between items-center  w-full  lg:space-x-[40px] font-medium text-[16px] text-black '>
+            <li  className='flex items-center justify-center p-2'>Shop</li>
+            <li className='flex items-center justify-center p-2'>About Us</li>
+            <li className='flex items-center justify-center p-2'>Glog</li>
+            <li className='flex items-center justify-center p-2'>FAQs</li>
+            <li className='flex items-center justify-center p-2'>Account</li>
+            <li className='flex items-center justify-center p-2'>Very Cool Subscriptions</li>
 
+          </ul>
+        </div>
+        {/* cart button */}
+        <div
+        className='flex w-fit'
+        onClick={()=>setModal(true)}
+        >cart[{cartItems.length}]</div>
+        {modal && (
+          <Cart
+          deleteItem={(idx:number)=>{
+           const updatedItems= cartItems.filter((item,index)=> index!==idx )
+           setCartItems(updatedItems);
+          }}
+          updateItem={
+            (idx:number,q:number)=>{
+              setCartItems((prev)=>{
+                const updatedItems=[...prev];
+                updatedItems[idx].totalPrice=cartItems[idx].price*q;
+                updatedItems[idx].quantity=q;
+                return updatedItems;
+
+              })
+            }
+          }
+            handleExit={() => setModal(false)} 
+            cartItems={cartItems} 
+            setItems={(item:IcartItem)=>{
+              setCartItems((prev)=>{
+                const updatedItem=prev?[...prev,item]:[item];
+                return updatedItem;
+              })
+            }} />
+        )}
+      </div>
+      {/* first section */}
       <div className='flex lg:flex-row flex-col w-full min-h-screen h-fit items-center rounded-[20px] bg-[#F6E6D9]  '>
         {/* carousel part  */}
 
         <div 
         // variants={fadeIn("left", 0.5)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.7 }}
-          id="default-carousel" className="relative min-h-screen h-full bg-[#F6E6D9]  w-[100%] lg:w-[50%]" data-carousel="slide">
+          id="default-carousel" className="relative min-h-screen h-[1168px]  bg-[#F6E6D9]  w-[100%] lg:w-[50%]" data-carousel="slide">
           {/* <!-- Carousel wrapper --> */}
           <div className="relative min-h-screen h-full w-full overflow-hidden">
             {productImage.map((item, index) => {
@@ -145,8 +222,8 @@ export default function Home() {
           </div>
           {/* <!-- Slider indicators --> */}
           {screenWidth >= 1024 ? (
-            <div className=' absolute  z-30 flex flex-col w-fit h-fit gap-[10px]  left-[40px] 
-      bottom-[40px]  bg-opacity-30 backdrop-blur-md  scale-110'>
+            <div className=' absolute  z-30 flex flex-col w-fit h-fit gap-[10px] bg-transparent left-[40px] 
+      bottom-[40px]   '>
               {/* selection list  */}
               {
                 productImage.map((item, index) => {
@@ -157,7 +234,7 @@ export default function Home() {
                       type='button'
                       className='tansition-all transform duration-100 hover:cursor-pointer
                     hover:ring-white hover:ring-2 hover:scale-110 hover:border-white bg-center bg-cover
-                     bg-no-repeat border-black border-2 w-[70px] h-[70px] bg-white rounded-full'
+                     bg-no-repeat border-black border-2 w-[60px] h-[60px] bg-white rounded-full'
                       aria-current={(index + 1) == 0 ? "true" : "false"}
                       aria-label={`Slide ${index + 1}`}
                       data-carousel-slide-to={`${index}`}
@@ -197,7 +274,8 @@ export default function Home() {
               <div className=' font-alpina text-[16px] font-bold tracking-tight'> <span>★★★★★</span> 967  Reviews</div>
             </motion.div>
             {/* quantity selector */}
-            <motion.div variants={fadeIn("down", 0.7)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.7 }}
+            <div 
+            // variants={fadeIn("down", 0.7)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.7 }}
               className=' flex flex-col items-center justify-start  border-black border-solid  bg-blend-lighten 
       border-[1px] h-fit  lg:w-[85%] xl:w-[65%] md:w-[65%] w-[95%]  bg-[#FFF4EC] rounded-[20px] my-[20px] py-[20px] px-[20px] text-[#3C422E] font-alpina'>
               {/* quantity */}
@@ -291,9 +369,24 @@ export default function Home() {
               {/* subscribe   & skip and cancel anytime*/}
               <div className='w-full flex flex-col items-center justify-between py-[20px] px-[10px]'>
                 {/* subscribe button */}
-                <div style={{ backgroundImage: `url(https://media.istockphoto.com/id/183813092/photo/photo-of-fabric-as-black-and-white-plaid-background.webp?b=1&s=170667a&w=0&k=20&c=w0-TN80w1FaUsFmmlRwIqm4oXXSCm9nSxmBVzfvAaAo=)` }}
+                <div 
+                style={{ backgroundImage: `url(https://media.istockphoto.com/id/183813092/photo/photo-of-fabric-as-black-and-white-plaid-background.webp?b=1&s=170667a&w=0&k=20&c=w0-TN80w1FaUsFmmlRwIqm4oXXSCm9nSxmBVzfvAaAo=)` }}
                   className='flex flex-row justify-center  items-center bg-white border-[1px] border-black rounded-[10px] w-full h-[40px] '>
-                  <button className='flex flex-col items-center justify-center  w-full text-bold border-black border-[2px] bg-[#D1E030] h-[40px]
+                  <button 
+                  onClick={()=>{
+                    if(paymentMode==0){
+                      const newItem:IcartItem={
+                        name:`"Drizzle" & "Sizzle"`,
+                        price:quantities[quantity].price.real,
+                        quantity:quantities[quantity].no,
+                        totalPrice:Number(quantities[quantity].price.offer)
+                      }
+                      setCartItems((prev)=>[...prev,newItem]);
+                      setModal(true );
+
+                    }
+                  }}
+                  className='flex flex-col items-center justify-center  w-full text-bold border-black border-[2px] bg-[#D1E030] h-[40px]
                            rounded-[10px] -translate-x-2 -translate-y-1 hover:translate-x-0 hover:translate-y-0
                             transition-all transform duration-150'>
                     <span className='text-[#3C422E] text-[20px] font-alpina  font-extrabold  tracking-widest '>
@@ -311,9 +404,12 @@ export default function Home() {
                   </span>
 
                 )}
+                
               </div>
-            </motion.div>
+
+            </div>
             {/* description */}
+            
             <div
             //  variants={fadeIn("down", 0.9)} initial="hidden" whileInView={"show"} viewport={{ once: false, amount: 0.3 }}
               className='flex flex-col items-center   bg-blend-lighten 
@@ -388,10 +484,20 @@ export default function Home() {
 
             </div>
 
+
           </div>
+
+
         </div>
 
       </div>
+      {/* extra */}
+
+        {/* <div className='flex flex-col justify-between items-center w-fit h-fit'>
+          <TestCarousel/>
+        </div> */}
+        {/* extra */}
+
     </main>
   )
 }

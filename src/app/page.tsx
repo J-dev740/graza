@@ -1,13 +1,13 @@
 'use client';
-import Image from 'next/image'
+// import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { fadeIn } from '../app/variants'
+// import { fadeIn } from '../app/variants'
 import {IoIosArrowUp,IoIosArrowDown} from 'react-icons/io'
 import Cart from './components/cart'
-import { Carousel, Progress } from 'flowbite-react'
-import { Button } from 'flowbite-react';
-import TestCarousel from './components/testcarousel';
+// import { Carousel, Progress } from 'flowbite-react'
+// import { Button } from 'flowbite-react';
+// import TestCarousel from './components/testcarousel';
 import { CgMenuHotdog } from "react-icons/cg";
 import { MdOutlineRestaurantMenu } from "react-icons/md";
 

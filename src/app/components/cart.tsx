@@ -1,12 +1,12 @@
 
 import React, { useEffect, useState } from 'react'
-import Carouselcart from './carousel';
+// import Carouselcart from './carousel';
 import Slider from 'react-slick';
 import TestCarousel from './testcarousel';
 import { Progress } from 'flowbite-react';
-import { Router } from 'next/router';
+// import { Router } from 'next/router';
 import Link from 'next/link';
-import { numberFormat } from 'highcharts';
+// import { numberFormat } from 'highcharts';
 
 
 interface IcartItem {

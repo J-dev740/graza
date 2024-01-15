@@ -29,7 +29,7 @@ function Cart({ handleExit,cartItems,setItems,deleteItem,updateItem }: ICart) {
     const settings = {
         dots: true,
         infinite: true,
-        speed: 1200,
+        speed: 700,
         slidesToShow: 1,
         slidesToScroll: 1,
         arrows: false,

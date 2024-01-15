@@ -8,6 +8,8 @@ import Cart from './components/cart'
 import { Carousel, Progress } from 'flowbite-react'
 import { Button } from 'flowbite-react';
 import TestCarousel from './components/testcarousel';
+import { CgMenuHotdog } from "react-icons/cg";
+import { MdOutlineRestaurantMenu } from "react-icons/md";
 
 interface IcartItem {
   quantity:number,
@@ -150,17 +152,75 @@ export default function Home() {
   const [open, setOpen] = useState(false);
   const [quantity, setQuantity] = useState(0);
   const [modal,setModal]=useState(false);
+  const[openH,setH]=useState(false);
+  const [shop,setShop]=useState(false);
   // const [image,setImage]=useState(productImage[0].url);
   return (
-    <main className="flex min-h-screen h-fit  w-full flex-col items-center justify-between bg-[#F6E6D9] ">
+    <main className="flex min-h-screen h-fit  w-full flex-col items-center justify-between bg-[#F6E6D9] font-alpina ">
+      <div className='text-center items-center  object-center w-full uppercase tracking-tighter text-black leading-6 text-[12px]  font-alpina font-bold'>
+       { `Hi we <3 you for visiting our site` }
+      </div>
       {/* navbar  */}
-      <div className='flex flex-row w-full text-black justify-between bg-transparent items-center py-4 px-8'>
+      <div className=' border-t-[2px] border-black border-solid z-30 lg:z-0 flex flex-row w-full text-black justify-evenly bg-transparent items-center py-1 px-8'>
         {/* Graza */}
-        <div className='w-fit'>Graza</div>
+        {/* hamburger menu */}
+        <div className='lg:hidden flex w-fit z-30  '>
+          {/* open */}
+          <CgMenuHotdog 
+          onClick={()=>setH(!openH)}
+          className={!openH?'w-[50px] hover:cursor-pointer h-[50px]':"hidden"}/>
+          {/* close */}
+          <MdOutlineRestaurantMenu 
+          onClick={()=>setH(!openH)}
+          className={openH?'w-[50px] hover:cursor-pointer h-[50px]':'hidden'} />
+        </div>
+        <div className='lg:w-fit text-[50px] font-extrabold'>Graza</div>
         {/* nav section */}
         <div>
-          <ul className='flex flex-col lg:flex-row justify-between items-center  w-full  lg:space-x-[40px] font-medium text-[16px] text-black '>
-            <li  className='flex items-center justify-center p-2'>Shop</li>
+          <ul className={`lg:flex ${!openH?'hidden':''} lg:flex-row justify-between items-center font-bold  w-full  lg:space-x-[40px]  text-[16px] text-black `}>
+            <li 
+            onMouseOver={()=>setShop(true)}
+             className=' relative  flex items-center justify-center p-2'>
+              <span>shop</span>
+              {/* hoverdiv */}
+              <div 
+              onMouseEnter={()=>setShop(true)}
+              onMouseLeave={()=>setShop(false)}
+              className={shop?'absolute -bottom-[450px] left-[5px] flex flex-col justify-between w-[330px] rounded-[20px] bg-black   ':'hidden'}>
+                <ul className='flex flex-col border-black border-[1px] bg-[#D1E030] rounded-[20px] -translate-x-2 -translate-y-2 hover:translate-x-0 hover:translate-y-0 transition-all duration-100 justify-between items-center gap-[10px]'>
+                { productImage.filter((item,index)=>index<4).map((item,index)=>{
+                 return ( <li
+                  key={index} className='group flex flex-row justify-between py-[16px] text-black space-x-[20px] border-dashed border-black border-b-[1px]'>
+                    {/* <div className='p-[8px] rounded-[10px] flex flex-row items-stretch gap-[12px] '> */}
+                    {/* img part */}
+                    <div
+                      // style={{ backgroundImage: `url(https://www.graza.co/cdn/shop/files/graza-pdp-duo-header-3_2x_caa7f912-38b3-4e36-b928-ed6c036abfc7_1440x.jpg?v=1698551972)` }}
+                      className='flex w-fit h-fit bg-cover bg-center    '>
+                      <img src={item.url}
+                        className='flex  h-[70px] w-[88px] object-cover object-center   rounded-[10px]' alt='...' />
+
+                    </div>
+                    {/* product  */}
+                    <div className='w-full h-full  flex flex-col justify-between items-start   text-[16px] font-medium '>
+                      <div className='flex flex-col w-full h-full items-start text-wrap font-medium leading-tight'>
+                        <p className='tracking-widest leading-6 '>"Drizzle" & "Sizzle"</p>
+                        {/* <span className='font-light tracking-widest leading-6'> 1 bottle </span> */}
+
+                      </div>
+                      <div className='text-bold text-[20px]'>Variety Pack</div>
+                    </div>
+                    {/* <div className='hidden group-hover:block  mr-[10px] group-hover:translate-x-2 ease-in transition-all duration-100 object-center w-[20px] h-[20px] rounded-[10px] bg-transparent pr-4 '>{`>`}</div> */}
+
+                    {/* </div> */}
+                  </li>)
+
+                })}
+                  
+
+                </ul>
+
+              </div>
+              </li>
             <li className='flex items-center justify-center p-2'>About Us</li>
             <li className='flex items-center justify-center p-2'>Glog</li>
             <li className='flex items-center justify-center p-2'>FAQs</li>
@@ -171,7 +231,7 @@ export default function Home() {
         </div>
         {/* cart button */}
         <div
-        className='flex w-fit'
+        className='flex w-fit font-bold'
         onClick={()=>setModal(true)}
         >cart[{cartItems.length}]</div>
         {modal && (

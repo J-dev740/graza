@@ -157,11 +157,11 @@ export default function Home() {
   // const [image,setImage]=useState(productImage[0].url);
   return (
     <main className="flex min-h-screen h-fit  w-full flex-col items-center justify-between bg-[#F6E6D9] font-alpina ">
-      <div className='text-center items-center  object-center w-full uppercase tracking-tighter text-black leading-6 text-[12px]  font-alpina font-bold'>
+      <div className={(openH?'bg-[#D1E030]':'bg-inherit')+' items-center  text-center object-center w-full uppercase tracking-tighter text-black leading-6 text-[12px]  font-alpina font-bold'}>
        { `Hi we <3 you for visiting our site` }
       </div>
       {/* navbar  */}
-      <div className=' border-t-[2px] border-black border-solid z-30 lg:z-0 flex flex-row w-full text-black justify-evenly bg-transparent items-center py-1 px-8'>
+      <div className='relative  border-t-[2px] border-black border-solid  z-40 lg:z-0 flex flex-row w-full text-black justify-evenly bg-inherit bg-opacity-100 lg:bg-transparent items-center py-1 px-8'>
         {/* Graza */}
         {/* hamburger menu */}
         <div className='lg:hidden flex w-fit z-30  '>
@@ -177,7 +177,7 @@ export default function Home() {
         <div className='lg:w-fit text-[50px] font-extrabold'>Graza</div>
         {/* nav section */}
         <div>
-          <ul className={`lg:flex ${!openH?'hidden':''} lg:flex-row justify-between items-center font-bold  w-full  lg:space-x-[40px]  text-[16px] text-black `}>
+          <ul className={`lg:flex hidden lg:flex-row justify-between items-center font-bold  w-full  lg:space-x-[40px]  text-[16px] text-black `}>
             <li 
             onMouseOver={()=>setShop(true)}
              className=' relative  flex items-center justify-center p-2'>
@@ -260,7 +260,59 @@ export default function Home() {
               })
             }} />
         )}
+
+      {     
+ openH && (
+      <div className=' lg:hidden transition-all font-bold font-alpina -z-10 ease-in-out duration-500 absolute inset-0   py-8  h-screen w-full bg-[#D1E030]  px-2 '>
+        <div className=' flex w-screen h-full items-center overflow-y-scroll no-scrollbar mt-[32px] pb-[36px] '>
+        <ul className='grid grid-cols-2 w-full gap-x-10 gap-y-4 pt-4  '>
+          <li className=' col col-span-2 flex-col justify-between items-start w-full '>
+           <span className='flex pb-2 pt-4 border-dashed border-black border-b-[1px] w-full text-start'>Shop</span>
+           { productImage.filter((item,index)=>index<4).map((item,index)=>{
+                 return ( <li
+                  key={index} className='group flex hover:cursor-pointer flex-row justify-between py-[16px] text-black space-x-[20px] border-dashed border-black border-b-[1px]'>
+                    {/* <div className='p-[8px] rounded-[10px] flex flex-row items-stretch gap-[12px] '> */}
+                    {/* img part */}
+                    <div
+                      // style={{ backgroundImage: `url(https://www.graza.co/cdn/shop/files/graza-pdp-duo-header-3_2x_caa7f912-38b3-4e36-b928-ed6c036abfc7_1440x.jpg?v=1698551972)` }}
+                      className='flex w-fit h-fit bg-cover bg-center    '>
+                      <img src={item.url}
+                        className='flex  h-[70px] w-[88px] object-cover object-center   rounded-[10px]' alt='...' />
+
+                    </div>
+                    {/* product  */}
+                    <div className='w-full h-full  flex flex-col justify-between items-start   text-[16px] font-medium '>
+                      <div className='flex flex-col w-full h-full items-start text-wrap font-medium leading-tight'>
+                        <p className='tracking-widest leading-6 '>"Drizzle" & "Sizzle"</p>
+                        {/* <span className='font-light tracking-widest leading-6'> 1 bottle </span> */}
+
+                      </div>
+                      <div className='text-bold text-[20px]'>Variety Pack</div>
+                    </div>
+                    {/* <div className='hidden group-hover:block  mr-[10px] group-hover:translate-x-2 ease-in transition-all duration-100 object-center w-[20px] h-[20px] rounded-[10px] bg-transparent pr-4 '>{`>`}</div> */}
+
+                    {/* </div> */}
+                  </li>)
+
+                })}
+           
+          </li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>About Us</li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>Glog</li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>Faqs</li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>Account</li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>Subscribe </li>
+          <li className=' col col-span-1 text-[20px] hover:cursor-pointer'>Stockists</li>
+
+        </ul>
+
+        </div>
+
       </div>
+
+      )}
+      </div>
+      {/* mobile menu */}
       {/* first section */}
       <div className='flex lg:flex-row flex-col w-full min-h-screen h-fit items-center rounded-[20px] bg-[#F6E6D9]  '>
         {/* carousel part  */}
@@ -282,7 +334,7 @@ export default function Home() {
           </div>
           {/* <!-- Slider indicators --> */}
           {screenWidth >= 1024 ? (
-            <div className=' absolute  z-30 flex flex-col w-fit h-fit gap-[10px] bg-transparent left-[40px] 
+            <div className=' absolute  z-20 flex flex-col w-fit h-fit gap-[10px] bg-transparent left-[40px] 
       bottom-[40px]   '>
               {/* selection list  */}
               {

@@ -75,7 +75,7 @@ function Cart({ handleExit,cartItems,setItems,deleteItem,updateItem }: ICart) {
 
     },[cartItems])
     return (
-        <div className='fixed  z-50 inset-0 flex justify-center bg-black bg-opacity-30 backdrop-blur-sm'>
+        <div className='fixed  z-50 inset-0 flex justify-center bg-black bg-opacity-30 backdrop-blur-sm font-alpina font-bold'>
             {/* cart drawer  */}
             <div className='absolute inset-y-0 right-0 flex flex-col justify-between  items-center w-[24rem] h-screen max-w-sm bg-white  border-l-black border-solid border-[1px]'
             >
@@ -159,7 +159,7 @@ function Cart({ handleExit,cartItems,setItems,deleteItem,updateItem }: ICart) {
                                                 onClick={()=>{
                                                     updateItem(index,item.quantity+1);
                                                 }}
-                                                 className=' w-[24px] h-[24px] rounded-full ring-black ring-[1px] text-center'>+</div>
+                                                 className=' w-[24px] h-[24px] hover:cursor-pointer rounded-full ring-black ring-[1px] text-center'>+</div>
 
                                             </span>
                                         </div>
